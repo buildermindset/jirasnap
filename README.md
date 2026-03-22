@@ -225,7 +225,7 @@ Use this before publishing or after major changes:
 - Working task list: [docs/todo.md](docs/todo.md)
 - Troubleshooting notes and publish gotchas: [docs/troubleshooting.md](docs/troubleshooting.md)
 - Release notes: [CHANGELOG.md](CHANGELOG.md)
-- Publishing steps: [PUBLISHING.md](PUBLISHING.md)
+- Publishing steps: [docs/PUBLISHING.md](docs/PUBLISHING.md)
 
 ## License
 
