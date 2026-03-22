@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-- VS Code Marketplace publisher created: `TroyJohnson`
+- VS Code Marketplace publisher created and owned by the active account (current: `troyjohnson-devtools`)
 - Personal Access Token with Marketplace publish/manage scope
 - Repository version updated in `package.json`
 
@@ -11,7 +11,7 @@
 1. Log in to the VS Code Marketplace publisher:
 
 ```bash
-npx @vscode/vsce login TroyJohnson
+npx @vscode/vsce login troyjohnson-devtools
 ```
 
 2. Paste your Marketplace Personal Access Token when prompted.
@@ -73,7 +73,19 @@ npx @vscode/vsce publish major
 
 - `publisher does not exist`
   - `publisher` in `package.json` must exactly match your Marketplace publisher ID
+- `Access Denied ... on resource /<publisher>`
+  - account mismatch: PAT/login account is different from the account that owns the publisher
+  - confirm active account in Marketplace and Azure DevOps before `vsce login`
 - image or README packaging errors
   - use PNG for extension icon and README images
 - PAT login failures
   - create a new PAT with Marketplace permissions and run `vsce login` again
+
+## Web Upload Fallback
+
+If CLI auth is blocked, publish through the Marketplace web UI:
+
+1. Open your publisher in Marketplace.
+2. Choose **New extension**.
+3. Upload `jirasnap-<version>.vsix`.
+4. Publish from the web flow.

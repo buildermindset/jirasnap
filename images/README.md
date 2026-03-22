@@ -1,13 +1,21 @@
 # Image Assets
 
-Current branding assets used by the project.
+This folder keeps source assets and publishable PNG outputs.
 
-Files in use:
+Runtime assets (used in extension/listing):
 
 - `icon.png`
-  - 128x128
-  - square
-  - used by `package.json` as the extension icon
+  - 128x128 square
+  - referenced by `package.json` as extension icon
 - `banner.png`
-  - used by `README.md` as the Marketplace/GitHub promo image
-  - wide format
+  - referenced by `README.md`
+
+Source assets (editable design files):
+
+- `icon.svg`
+- `banner.svg`
+
+Notes:
+
+- The VSIX excludes SVG source files to keep package size smaller.
+- Regenerate PNGs from SVG sources with `npm run assets`.

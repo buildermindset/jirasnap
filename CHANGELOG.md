@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.0.3
+
+- Added Marketplace badge and listing placeholders to README.
+- Consolidated open TODO items into a single combined list.
+- Added troubleshooting guide for Jira and Marketplace publish gotchas.
+- Updated publishing docs for the current publisher and web-upload fallback.
+- Cleaned image packaging by excluding source SVG files from VSIX output.
+
 ## 0.0.2
 
 - Refined Marketplace and README assets, including regenerated banner and icon source files.

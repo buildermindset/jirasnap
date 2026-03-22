@@ -1,0 +1,147 @@
+# JiraSnap Troubleshooting
+
+This page captures known issues hit during development and publishing, plus quick fixes.
+
+## Jira API Issues
+
+### Authentication failed
+
+Symptoms:
+
+- JiraSnap shows auth failure
+- Jira API returns 401
+
+Checks:
+
+- Verify `jirasnap.email`
+- Verify `jirasnap.apiToken`
+- Confirm token is generated from Atlassian API token page
+
+### Permission denied
+
+Symptoms:
+
+- Jira API returns 403
+
+Checks:
+
+- Account can create issues in target project
+- Project key in settings is valid and visible to that account
+
+### Description format error
+
+Symptoms:
+
+- Jira rejects description payload
+
+Fix:
+
+- Jira Cloud requires ADF document format
+- Use latest packaged JiraSnap version (ADF is already implemented)
+
+### Parent epic rejected
+
+Symptoms:
+
+- Jira returns hierarchy or parent validation errors
+
+Fix:
+
+- Confirm `jirasnap.defaultEpicKey`
+- JiraSnap retries creation without parent when parent assignment is invalid
+
+### Custom field errors (capitalizable)
+
+Symptoms:
+
+- Jira rejects custom field payload
+
+Checks:
+
+- Confirm `jirasnap.capitalizableFieldId` matches your Jira instance
+- Confirm option value exists (default `Yes`)
+
+## Marketplace Publishing Issues
+
+### Publisher mismatch on upload
+
+Symptoms:
+
+- Error says manifest publisher must match target publisher
+
+Fix:
+
+- `package.json` `publisher` must exactly match Marketplace publisher ID
+- Rebuild VSIX after changing `publisher`
+
+### PAT verification fails with access denied
+
+Symptoms:
+
+- `vsce login` returns access denied on resource `/<publisher>`
+
+Root cause:
+
+- PAT/account does not own that publisher
+
+Fix:
+
+- Sign in with the account that owns the publisher
+- Create PAT from that same account
+- Re-run `vsce login <publisherId>`
+
+### Account split (work vs personal)
+
+Symptoms:
+
+- Extension exists under one account, PAT from another account fails
+
+Fix:
+
+- Confirm active account in Marketplace and Azure DevOps
+- Publish under the account-owned publisher
+- If needed, create a new publisher under the correct account and update manifest
+
+### Token page confusion
+
+Known working PAT URL in this project:
+
+- https://dev.azure.com/johnsontroye1/_usersSettings/tokens
+
+## Packaging and Asset Issues
+
+### Icon not found in VSIX
+
+Symptoms:
+
+- VSCE reports icon file not found
+
+Fix:
+
+- Ensure `images/icon.png` exists
+- Run `npm run assets` to regenerate PNGs from SVG sources
+
+### Oversized package due to source images
+
+Fix:
+
+- Keep source SVG in repo for maintainability
+- Exclude source SVG and image notes from VSIX via `.vscodeignore`
+
+## Fallback Publish Path
+
+If CLI auth keeps failing:
+
+1. Open publisher page in Marketplace.
+2. Choose **New extension**.
+3. Upload `jirasnap-<version>.vsix`.
+4. Publish from the web UI.
+
+## Add New Gotchas
+
+When adding a new issue to this page, include:
+
+- Symptom/error text
+- Root cause
+- Exact fix steps
+- Whether the fix is account-specific or general

@@ -2,6 +2,8 @@
 
 Create Jira tasks from VS Code in seconds.
 
+[![Marketplace](https://img.shields.io/visual-studio-marketplace/v/troyjohnson-devtools.jirasnap?label=Marketplace)](https://marketplace.visualstudio.com/items?itemName=troyjohnson-devtools.jirasnap)
+
 ![JiraSnap banner](images/banner.png)
 
 JiraSnap is a focused capture extension: minimal prompts, automatic context, and reliable issue creation even when parent assignment fails.
@@ -74,11 +76,17 @@ Optional settings:
 
 ## Installation
 
+### Install from Marketplace
+
+Use this placeholder listing URL until verification is complete:
+
+- https://marketplace.visualstudio.com/items?itemName=troyjohnson-devtools.jirasnap
+
 ### Install from VSIX (local)
 
 1. In VS Code Extensions view, open `...` menu.
 2. Select `Install from VSIX...`.
-3. Choose `jirasnap-0.0.1.vsix`.
+3. Choose `jirasnap-0.0.2.vsix`.
 
 ### Development install
 
@@ -143,6 +151,7 @@ Use this before publishing or after major changes:
 
 - Build and implementation checklist: [docs/BUILD_PLAN.md](docs/BUILD_PLAN.md)
 - Working task list: [docs/todo.md](docs/todo.md)
+- Troubleshooting notes and publish gotchas: [docs/troubleshooting.md](docs/troubleshooting.md)
 - Release notes: [CHANGELOG.md](CHANGELOG.md)
 - Publishing steps: [PUBLISHING.md](PUBLISHING.md)
 

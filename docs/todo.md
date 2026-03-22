@@ -1,30 +1,25 @@
-# JiraSnap TODO
+# JiraSnap Combined TODO
 
-## High Priority
+Only open work is listed below.
 
-- [x] Add tiny unit tests for Jira error parsing and parent-error detection logic.
-- [x] Confirm required Jira field `capitalizable` mapping from `tnt-tools-hub/tnt-forms`.
-- [x] Implement `capitalizable = Yes` in Jira create payload using the exact field ID/value shape from `tnt-forms`.
-- [ ] Add fallback/error handling if `capitalizable` mapping is missing or rejected by Jira.
-- [ ] Validate end-to-end issue creation in Chewy Jira with:
-  - [x] configured parent epic (validated via TNT-1901)
-  - [x] no parent epic (validated via TNT-1903)
-  - [x] invalid parent epic (validated via TNT-1902 fallback)
+## Release Follow-up
 
-## Medium Priority
+- [ ] Replace README Marketplace placeholders with final public listing URL.
+- [ ] Confirm Marketplace listing visuals after verification (icon, banner, README image rendering).
+- [ ] Add a short demo recording (capture flow + open captures flow).
 
-- [ ] Add a small helper module for Jira field mappings (custom fields) to keep payload construction clean.
-- [ ] Add integration-style payload tests (shape-only, no live Jira call).
-- [ ] Improve user-facing error messages for custom field failures (include field name + action).
-- [ ] Add command to run a quick Jira configuration self-check (base URL, auth, project, optional parent).
+## Product Hardening
+
+- [ ] Add fallback handling when the capitalizable custom field is missing/rejected.
+- [ ] Improve custom-field error messages with field id/name + suggested action.
+- [ ] Add a quick configuration self-check command (base URL, auth, project, optional parent).
+
+## Code Quality
+
+- [ ] Add a helper module for Jira custom-field mappings.
+- [ ] Add integration-style payload tests (shape validation, no live Jira call).
 
 ## Docs
 
-- [x] Document `capitalizable` requirement and mapping details in README.
-- [x] Add troubleshooting section for common Jira create failures (auth, permission, project key, custom field mapping).
-- [x] Add a short "How to validate in a real Jira project" checklist.
-
-## Polish
-
-- [ ] Add demo recording showing capture flow and Open Captures flow.
-- [ ] Add changelog notes for parent fallback + friendly error handling + status bar button.
+- [ ] Keep `docs/troubleshooting.md` updated with new Jira/Marketplace gotchas.
+- [ ] Add a short release checklist section referencing account/publisher mismatch checks.
