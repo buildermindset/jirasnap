@@ -3,7 +3,7 @@
   "displayName": "JiraSnap",
   "description": "Instant Jira task capture from VS Code.",
   "version": "0.0.2",
-  "publisher": "TroyJohnson",
+  "publisher": "troyjohnson-devtools",
   "icon": "images/icon.png",
   "galleryBanner": {
     "color": "#0E1535",
