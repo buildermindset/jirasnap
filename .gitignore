@@ -1,0 +1,40 @@
+# Dependencies
+node_modules/
+
+# Build output
+out/
+dist/
+*.vsix
+
+# TypeScript
+*.js
+*.js.map
+*.d.ts
+!webpack.config.js
+!jest.config.js
+
+# VS Code Extension
+.vscode-test/
+
+# Environment and secrets
+.env
+.env.*
+*.pem
+*.key
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+.idea/
+*.swp
+*.swo
+*~
+
+# Test coverage
+coverage/
+
+# Logs
+*.log
+npm-debug.log*
