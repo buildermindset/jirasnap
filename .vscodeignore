@@ -1,0 +1,12 @@
+**/.vscode/**
+**/.git/**
+**/.github/**
+**/node_modules/**
+src/**
+test/**
+dist-test/**
+scripts/**
+tsconfig.json
+tsconfig.test.json
+.eslintrc.cjs
+eslint.config.js

@@ -1,0 +1,128 @@
+{
+  "name": "jirasnap",
+  "displayName": "JiraSnap",
+  "description": "Instant Jira task capture from VS Code.",
+  "version": "0.0.2",
+  "publisher": "TroyJohnson",
+  "icon": "images/icon.png",
+  "galleryBanner": {
+    "color": "#0E1535",
+    "theme": "dark"
+  },
+  "homepage": "https://github.com/buildermindset/jirasnap",
+  "bugs": {
+    "url": "https://github.com/buildermindset/jirasnap/issues"
+  },
+  "keywords": [
+    "jira",
+    "ticket",
+    "issue",
+    "developer-tools",
+    "productivity",
+    "vscode"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/buildermindset/jirasnap"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:jirasnap.captureTask",
+    "onCommand:jirasnap.openCaptures",
+    "onStartupFinished"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "jirasnap.captureTask",
+        "title": "JiraSnap: Capture Task"
+      },
+      {
+        "command": "jirasnap.openCaptures",
+        "title": "JiraSnap: Open Captures"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "JiraSnap",
+      "properties": {
+        "jirasnap.baseUrl": {
+          "type": "string",
+          "default": "",
+          "description": "Your Jira base URL. Example: https://your-org.atlassian.net"
+        },
+        "jirasnap.email": {
+          "type": "string",
+          "default": "",
+          "description": "Jira account email used for API authentication."
+        },
+        "jirasnap.apiToken": {
+          "type": "string",
+          "default": "",
+          "description": "Jira API token used for API authentication."
+        },
+        "jirasnap.projectKey": {
+          "type": "string",
+          "default": "",
+          "description": "Jira project key where tasks will be created."
+        },
+        "jirasnap.defaultEpicKey": {
+          "type": "string",
+          "default": "",
+          "description": "Optional default parent epic. Accepts issue key (for example TNT-1900) or a full Jira browse URL. If empty or invalid, JiraSnap still creates the task without a parent."
+        },
+        "jirasnap.capturesJql": {
+          "type": "string",
+          "default": "labels = jirasnap ORDER BY created DESC",
+          "description": "JQL query used by JiraSnap: Open Captures."
+        },
+        "jirasnap.showStatusBarOpenCaptures": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show a status bar button that opens JiraSnap captures."
+        },
+        "jirasnap.capitalizableFieldId": {
+          "type": "string",
+          "default": "customfield_11302",
+          "description": "Jira custom field id for the Capitalizable field."
+        },
+        "jirasnap.capitalizableValue": {
+          "type": "string",
+          "default": "Yes",
+          "description": "Value to send for the Capitalizable Jira field."
+        }
+      }
+    },
+    "keybindings": [
+      {
+        "command": "jirasnap.captureTask",
+        "key": "cmd+shift+j",
+        "when": "editorTextFocus"
+      }
+    ]
+  },
+  "scripts": {
+    "build": "tsc -p .",
+    "watch": "tsc -w -p .",
+    "lint": "eslint src --ext .ts",
+    "build:test": "tsc -p tsconfig.test.json",
+    "test": "npm run build:test && node --test dist-test/test/**/*.test.js",
+    "smoke": "node scripts/smoke-create-jira-issue.js",
+    "package:vsix": "npm run build && npx @vscode/vsce package"
+  },
+  "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2",
+    "@types/node": "^20.11.30",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^8.30.1",
+    "@typescript-eslint/parser": "^8.30.1",
+    "eslint": "^9.23.0",
+    "typescript": "^5.8.3"
+  }
+}

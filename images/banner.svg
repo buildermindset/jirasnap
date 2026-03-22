@@ -1,0 +1,55 @@
+<svg width="1280" height="640" viewBox="0 0 1280 640" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="60" y1="40" x2="1220" y2="600" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#101940"/>
+      <stop offset="1" stop-color="#070D24"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#182456"/>
+      <stop offset="1" stop-color="#10183A"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#59A8FF"/>
+      <stop offset="1" stop-color="#285BFF"/>
+    </linearGradient>
+    <filter id="glow" x="0" y="0" width="1280" height="640" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="16" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 1 0 0 0.3  0 0 1 0 1  0 0 0 0.18 0"/>
+    </filter>
+  </defs>
+  <rect width="1280" height="640" rx="0" fill="url(#bg)"/>
+  <circle cx="1100" cy="100" r="140" fill="#2E63FF" opacity="0.14"/>
+  <circle cx="170" cy="560" r="180" fill="#1C49D9" opacity="0.10"/>
+  <g filter="url(#glow)">
+    <path d="M560 420C640 420 642 420 720 420" stroke="#54C4FF" stroke-width="8" stroke-linecap="round"/>
+    <path d="M720 420C748 420 766 438 766 466V470" stroke="#54C4FF" stroke-width="8" stroke-linecap="round"/>
+  </g>
+  <rect x="84" y="72" width="84" height="84" rx="20" fill="url(#accent)"/>
+  <path d="M126 94L148 116L126 138L104 116L126 94Z" stroke="white" stroke-width="7" stroke-linejoin="round"/>
+  <path d="M126 110L138 122L126 134L114 122L126 110Z" fill="white"/>
+  <text x="196" y="132" fill="white" font-family="Arial, Helvetica, sans-serif" font-size="66" font-weight="700">JiraSnap</text>
+  <text x="84" y="230" fill="white" font-family="Arial, Helvetica, sans-serif" font-size="48" font-weight="700">Capture Jira tickets in seconds,</text>
+  <text x="84" y="290" fill="white" font-family="Arial, Helvetica, sans-serif" font-size="48" font-weight="700">stay in your coding flow</text>
+  <rect x="88" y="340" width="470" height="220" rx="22" fill="url(#panel)" stroke="#24398D"/>
+  <rect x="108" y="362" width="430" height="18" rx="9" fill="#24305F"/>
+  <circle cx="122" cy="371" r="5" fill="#F87171"/>
+  <circle cx="138" cy="371" r="5" fill="#FBBF24"/>
+  <circle cx="154" cy="371" r="5" fill="#34D399"/>
+  <rect x="126" y="414" width="186" height="4" rx="2" fill="#8B5CF6"/>
+  <rect x="126" y="442" width="280" height="4" rx="2" fill="#22D3EE"/>
+  <rect x="126" y="470" width="238" height="4" rx="2" fill="#F59E0B"/>
+  <rect x="126" y="498" width="316" height="4" rx="2" fill="#60A5FA"/>
+  <rect x="126" y="526" width="176" height="4" rx="2" fill="#A855F7"/>
+  <circle cx="564" cy="420" r="36" fill="url(#accent)"/>
+  <path d="M564 404V436" stroke="white" stroke-width="6" stroke-linecap="round"/>
+  <path d="M548 420H580" stroke="white" stroke-width="6" stroke-linecap="round"/>
+  <rect x="742" y="320" width="444" height="282" rx="24" fill="url(#panel)" stroke="#3E6BFF" stroke-width="2"/>
+  <text x="778" y="388" fill="white" font-family="Arial, Helvetica, sans-serif" font-size="46" font-weight="700">Create</text>
+  <text x="778" y="440" fill="#BFD0FF" font-family="Arial, Helvetica, sans-serif" font-size="22">Summary</text>
+  <rect x="778" y="452" width="366" height="54" rx="12" stroke="#4A67CF"/>
+  <text x="804" y="487" fill="white" font-family="Arial, Helvetica, sans-serif" font-size="28">Fix login bug</text>
+  <text x="778" y="540" fill="#BFD0FF" font-family="Arial, Helvetica, sans-serif" font-size="22">Project: TNT</text>
+  <text x="778" y="576" fill="#BFD0FF" font-family="Arial, Helvetica, sans-serif" font-size="22">Type: Task</text>
+  <rect x="994" y="500" width="150" height="52" rx="14" fill="url(#accent)"/>
+  <text x="1035" y="534" fill="white" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700">Create</text>
+</svg>

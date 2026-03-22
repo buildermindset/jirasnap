@@ -1,97 +1,151 @@
-# Instant Jira Capture for VS Code
+# JiraSnap
 
-## Executive Summary
+Create Jira tasks from VS Code in seconds.
 
-Modern software development suffers from a consistent behavioral gap: engineers frequently discover bugs or enhancements while coding but defer creating Jira tickets due to workflow friction. This results in lost work, poor tracking, and inconsistent documentation.
+![JiraSnap banner](images/banner.png)
 
-This project proposes a VS Code extension that enables developers to create Jira tickets instantly, without leaving their coding context. The goal is to reduce friction to near zero, allowing ticket creation in under 10 seconds.
+JiraSnap is a focused capture extension: minimal prompts, automatic context, and reliable issue creation even when parent assignment fails.
 
-Unlike the existing Atlassian VS Code extension, which acts as a full Jira client requiring navigation and form completion, this tool focuses on rapid capture. It prioritizes speed, minimal input, and preservation of developer flow.
+## Features
 
-## Problem Statement
+- Fast command-driven capture from inside the editor
+- Optional parent epic assignment
+- Automatic fallback to unparented task if parent is invalid
+- Automatic label (`jirasnap`)
+- Optional quick note + captured context
+  - repo
+  - branch
+  - file path
+  - selected line range
+  - timestamp
+- Open captures view using configurable JQL
+- Status bar shortcut for quick access
 
-Engineers often:
-- Discover work mid-development
-- Avoid switching context to Jira
-- Delay or forget to create tickets
+## Commands
 
-The root issue is not time, but cognitive interruption and workflow friction.
+- `JiraSnap: Capture Task`
+- `JiraSnap: Open Captures`
 
-## Solution Overview
+Default keybinding:
 
-A lightweight VS Code extension that:
-- Triggers via keyboard shortcut or command palette
-- Captures minimal input (title, optional type)
-- Auto-fills context (file, branch, repo)
-- Creates a Jira ticket instantly
-- Returns a clickable link
+- macOS: `cmd+shift+j`
 
-## Key Differentiation
+## Requirements
 
-| Feature | Atlassian Extension | This Tool |
-|--------|--------------------|-----------|
-| Purpose | Full Jira client | Rapid capture tool |
-| Interaction | Sidebar navigation | Inline shortcut |
-| Input required | Multiple fields | Minimal |
-| Workflow impact | Interruptive | Flow-preserving |
+- Jira Cloud base URL
+- Jira account email
+- Jira API token
+- Jira project key
 
-## Architecture
+Create an Atlassian API token at:
 
-### Components
+- https://id.atlassian.com/manage-profile/security/api-tokens
 
-1. VS Code Extension (TypeScript)
-   - UI triggers
-   - Context capture
-   - User prompts
+## Extension Settings
 
-2. MCP Server (optional but recommended)
-   - Handles Jira API calls
-   - Applies defaults and mappings
+Required settings:
 
-3. Jira API / Atlassian MCP
-   - Ticket creation and updates
+- `jirasnap.baseUrl`
+- `jirasnap.email`
+- `jirasnap.apiToken`
+- `jirasnap.projectKey`
 
-### Flow
+Optional settings:
 
-1. User triggers command
-2. Extension captures context
-3. User enters title
-4. Extension calls MCP or Jira API
-5. Ticket is created
-6. Link is returned to user
+- `jirasnap.defaultEpicKey`
+  - accepts issue key (example: `TNT-1900`) or full browse URL
+- `jirasnap.capturesJql`
+  - default: `labels = jirasnap ORDER BY created DESC`
+- `jirasnap.showStatusBarOpenCaptures`
+  - default: `true`
+- `jirasnap.capitalizableFieldId`
+  - default: `customfield_11302`
+- `jirasnap.capitalizableValue`
+  - default: `Yes`
 
-## MVP Features
+## How It Works
 
-- Command + keyboard shortcut
-- Title input
-- Jira ticket creation
-- Link display
+1. Run `JiraSnap: Capture Task`.
+2. Enter title and optional quick note.
+3. JiraSnap builds Jira ADF description with captured context.
+4. JiraSnap attempts to create task with parent if configured.
+5. If parent is rejected, JiraSnap retries without parent.
+6. JiraSnap returns a clickable issue link.
 
-## Future Enhancements
+## Installation
 
-- Create from code selection
-- TODO parsing
-- Git integration
-- Status synchronization
+### Install from VSIX (local)
 
-## Configuration
+1. In VS Code Extensions view, open `...` menu.
+2. Select `Install from VSIX...`.
+3. Choose `jirasnap-0.0.1.vsix`.
 
-JiraSnap is designed to be generic and company-agnostic. Configure it for your environment:
+### Development install
 
-```json
-{
-  "jirasnap.baseUrl": "https://your-org.atlassian.net",
-  "jirasnap.projectKey": "YOUR_PROJECT",
-  "jirasnap.authType": "token"
-}
-```
+1. Clone repository.
+2. Run `npm install`.
+3. Press `F5` to launch Extension Development Host.
 
-All company-specific settings stay in your local config — never in the repo.
+## Usage Example
 
-## Why This Matters
+1. Set required settings.
+2. Run `JiraSnap: Capture Task`.
+3. Enter:
+   - Title: `Fix missing cache invalidation on product update`
+   - Quick note: `Observed while testing update endpoint`
+4. JiraSnap creates the task and offers `Open Issue`.
 
-This tool aligns with how developers actually work. It reduces friction, preserves flow, and increases compliance with tracking practices.
+## Troubleshooting
 
-## Conclusion
+- `Authentication failed`
+  - verify `jirasnap.email` and `jirasnap.apiToken`
+- `Permission denied`
+  - your Jira account cannot create issues in that project
+- `Project key not found` or project create failure
+  - verify `jirasnap.projectKey`
+- Parent/epic errors
+  - clear or correct `jirasnap.defaultEpicKey`; JiraSnap can create without parent
+- Jira custom field errors
+  - confirm `jirasnap.capitalizableFieldId` and option value for your Jira instance
+- Description format errors
+  - JiraSnap sends ADF automatically; if this appears again, validate against the latest packaged version
 
-This is not a replacement for Jira tools, but a complementary layer focused on speed and usability. It solves a real problem with a focused, opinionated approach and represents a strong portfolio project demonstrating developer experience optimization.
+## Validation
+
+- `npm run lint`
+- `npm run build`
+- `npm test`
+- `npm run smoke` (live Jira call, requires credentials in env)
+
+Smoke environment variables:
+
+- `JIRASNAP_BASE_URL`
+- `JIRASNAP_PROJECT_KEY`
+- `JIRASNAP_PARENT_KEY`
+- `JIRASNAP_SKIP_PARENT=1`
+- `JIRASNAP_EMAIL` / `JIRASNAP_API_TOKEN` (or `JIRA_EMAIL` / `JIRA_API_TOKEN`)
+
+## Real Jira Validation Checklist
+
+Use this before publishing or after major changes:
+
+1. Create a task with a valid parent epic.
+2. Create a task with no parent configured.
+3. Create a task with an invalid parent and confirm fallback succeeds.
+4. Open captures from the status bar or `JiraSnap: Open Captures`.
+5. Verify created issue includes:
+
+- label `jirasnap`
+- capitalizable field set to `Yes`
+- captured description context
+
+## Project Docs
+
+- Build and implementation checklist: [docs/BUILD_PLAN.md](docs/BUILD_PLAN.md)
+- Working task list: [docs/todo.md](docs/todo.md)
+- Release notes: [CHANGELOG.md](CHANGELOG.md)
+- Publishing steps: [PUBLISHING.md](PUBLISHING.md)
+
+## License
+
+MIT. See [LICENSE](LICENSE).
