@@ -15,7 +15,7 @@ You need a fresh PAT every time the old one expires.
 3. Fill in:
    - **Name**: anything descriptive, e.g. `vsce-publish-jirasnap`
    - **Organization**: `All accessible organizations`
-   - **Expiration**: your choice (90 days is a reasonable default)
+   - **Expiration**: **1 year** (recommended — avoids repeating this step frequently)
    - **Scopes**: choose **Custom defined**, then under **Marketplace** check **Manage**
 4. Click **Create**.
 5. Copy the token value immediately. It will not be shown again.
@@ -60,26 +60,30 @@ All three must succeed. The last command produces `jirasnap-<version>.vsix`.
 
 ---
 
-## Step 5 — Publish to Marketplace
+## Step 5 — Log in and publish
 
-Set your PAT and publish:
+**First time (or after token expiry):** store the PAT in your macOS Keychain so you never have to pass it again:
 
 ```bash
-export VSCE_PAT="<paste-your-token-here>"
+npx @vscode/vsce login troyjohnson-devtools
+# paste token when prompted
+```
+
+A successful login prints nothing alarming and exits 0. If it prints an error, see Common Issues below.
+
+**Every time:** publish using the stored login:
+
+```bash
 npx @vscode/vsce publish
 ```
 
-VSCE will:
+VSCE will re-package, upload, and print:
 
-1. Re-package the extension.
-2. Upload to the Marketplace under `troyjohnson-devtools`.
-3. Print a success message with the published version.
-
-If you prefer a one-liner without exporting:
-
-```bash
-npx @vscode/vsce publish --pat "<paste-your-token-here>"
 ```
+ DONE  Published troyjohnson-devtools.jirasnap v<version>.
+```
+
+If `DONE` appears, the publish succeeded regardless of what `vsce show` says next (see Step 6).
 
 ---
 
@@ -90,6 +94,11 @@ npx @vscode/vsce show troyjohnson-devtools.jirasnap
 ```
 
 Confirm `Version` in the output matches the version you just published.
+
+> **Note:** `vsce show` may still display the old version for 5–10 minutes after
+> a successful publish. This is normal Marketplace CDN propagation. If `vsce publish`
+> printed `DONE Published ... v<version>`, the publish succeeded. Wait a few minutes
+> and re-run `vsce show` to confirm.
 
 ---
 
@@ -109,10 +118,22 @@ git push origin main
 - This happens when `VSCE_PAT` is not set and no cached login exists.
 - Set `VSCE_PAT` via export before running publish (Step 5 above).
 
-### Access Denied on resource `/troyjohnson-devtools`
+### Access Denied on resource `/troyjohnson-devtools` — or null UUID error
 
-- The PAT you used was created from the wrong Microsoft account.
-- Sign into Azure DevOps at https://dev.azure.com/johnsontroye1 and create the token there.
+Exact error text seen during 0.0.4 release:
+
+```
+ERROR  The Personal Access Token verification has failed. Additional information:
+TF400813: The user 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa' is not authorized to access this resource.
+```
+
+The `aaaaaaaa` UUID means Azure DevOps could not resolve the account — the PAT was created from a different Microsoft account than the one that owns `troyjohnson-devtools`.
+
+Fix:
+
+1. Open https://dev.azure.com/johnsontroye1/_usersSettings/tokens in an incognito/private window.
+2. Sign in when prompted — verify the account shown is `johnsontroye1`, not a work account.
+3. Create the PAT there and retry `vsce login troyjohnson-devtools`.
 
 ### `publisher does not exist`
 
