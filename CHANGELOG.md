@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.0.5
+
+- Enhanced end-user documentation for required Jira custom fields setup.
+- Expanded DevTools discovery guide with precise 6-step walkthrough for identifying custom fields.
+- Reorganized publishing documentation into `docs/` directory.
+- Updated troubleshooting guide with additional VSCE publish and custom fields discovery steps.
+
 ## 0.0.4
 
 - Bumped extension version to `0.0.4` for Marketplace release.
