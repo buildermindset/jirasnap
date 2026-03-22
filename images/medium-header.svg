@@ -1,0 +1,185 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0D1535"/>
+      <stop offset="1" stop-color="#060B1C"/>
+    </linearGradient>
+    <linearGradient id="iconTile" x1="530" y1="116" x2="686" y2="272" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#59A8FF"/>
+      <stop offset="1" stop-color="#285BFF"/>
+    </linearGradient>
+    <linearGradient id="glowH" x1="0" y1="0" x2="1200" y2="0" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#285BFF" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#59A8FF" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#285BFF" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="glowV" x1="0" y1="0" x2="0" y2="630" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#285BFF" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#3A6FFF" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#285BFF" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="outerGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="22" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="haloGlow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="40" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <clipPath id="roundedFrame">
+      <rect width="1200" height="630" rx="0"/>
+    </clipPath>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Subtle grid -->
+  <g opacity="0.18" stroke="#2A3B6E" stroke-width="1">
+    <line x1="0"    y1="105" x2="1200" y2="105"/>
+    <line x1="0"    y1="210" x2="1200" y2="210"/>
+    <line x1="0"    y1="315" x2="1200" y2="315"/>
+    <line x1="0"    y1="420" x2="1200" y2="420"/>
+    <line x1="0"    y1="525" x2="1200" y2="525"/>
+    <line x1="150"  y1="0"   x2="150"  y2="630"/>
+    <line x1="300"  y1="0"   x2="300"  y2="630"/>
+    <line x1="450"  y1="0"   x2="450"  y2="630"/>
+    <line x1="600"  y1="0"   x2="600"  y2="630"/>
+    <line x1="750"  y1="0"   x2="750"  y2="630"/>
+    <line x1="900"  y1="0"   x2="900"  y2="630"/>
+    <line x1="1050" y1="0"   x2="1050" y2="630"/>
+  </g>
+
+  <!-- Ambient glow blobs -->
+  <circle cx="180"  cy="140" r="230" fill="#1E40AF" opacity="0.12" filter="url(#haloGlow)"/>
+  <circle cx="1030" cy="510" r="270" fill="#1E40AF" opacity="0.10" filter="url(#haloGlow)"/>
+
+  <!-- Central halo behind icon -->
+  <circle cx="600" cy="194" r="130" fill="#1B3FAF" opacity="0.20" filter="url(#haloGlow)"/>
+
+  <!-- Horizontal center scan line -->
+  <rect x="0" y="312" width="1200" height="1.5" fill="url(#glowH)" opacity="0.6"/>
+
+  <!-- Left decorative code stubs -->
+  <g opacity="0.55">
+    <rect x="32" y="256" width="88"  height="5" rx="2.5" fill="#223270"/>
+    <rect x="48" y="272" width="64"  height="5" rx="2.5" fill="#223270"/>
+    <rect x="32" y="288" width="104" height="5" rx="2.5" fill="#223270"/>
+    <rect x="48" y="304" width="56"  height="5" rx="2.5" fill="#223270"/>
+    <rect x="32" y="320" width="80"  height="5" rx="2.5" fill="#223270"/>
+    <rect x="48" y="336" width="72"  height="5" rx="2.5" fill="#223270"/>
+    <rect x="32" y="352" width="96"  height="5" rx="2.5" fill="#223270"/>
+    <rect x="48" y="368" width="48"  height="5" rx="2.5" fill="#223270"/>
+  </g>
+
+  <!-- Right decorative code stubs -->
+  <g opacity="0.55">
+    <rect x="1080" y="256" width="88"  height="5" rx="2.5" fill="#223270"/>
+    <rect x="1088" y="272" width="64"  height="5" rx="2.5" fill="#223270"/>
+    <rect x="1064" y="288" width="104" height="5" rx="2.5" fill="#223270"/>
+    <rect x="1088" y="304" width="56"  height="5" rx="2.5" fill="#223270"/>
+    <rect x="1080" y="320" width="80"  height="5" rx="2.5" fill="#223270"/>
+    <rect x="1080" y="336" width="72"  height="5" rx="2.5" fill="#223270"/>
+    <rect x="1072" y="352" width="96"  height="5" rx="2.5" fill="#223270"/>
+    <rect x="1088" y="368" width="48"  height="5" rx="2.5" fill="#223270"/>
+  </g>
+
+  <!-- JiraSnap Icon — scaled up from 128px source, centered at (600, 194) -->
+  <!-- Scale factor: 156/80 ≈ 1.95 (tile size); tile origin at (522, 116) -->
+  <!-- Outer glow circle -->
+  <circle cx="600" cy="194" r="96" fill="#2255D0" opacity="0.22" filter="url(#outerGlow)"/>
+
+  <!-- Icon tile: original tile 80x80 at (24,24) → scaled 156x156 at (522,116) -->
+  <rect x="522" y="116" width="156" height="156" rx="34" fill="url(#iconTile)"/>
+
+  <!-- Diamond outline: original M64 40 L82 58 L64 76 L46 58 Z →
+       transform: (orig - 64) * 1.95 + 600, (orig - 64) * 1.95 + 194
+       top   (64,40): 600, 155
+       right (82,58): 635, 190
+       bottom(64,76): 600, 225
+       left  (46,58): 565, 190
+       stroke-width: 6*1.95 ≈ 12 -->
+  <path d="M600 155 L635 190 L600 225 L565 190 Z"
+        stroke="white" stroke-width="12" stroke-linejoin="round"/>
+
+  <!-- Diamond fill: original M64 52 L74 62 L64 72 L54 62 Z →
+       top   (64,52): 600, 178
+       right (74,62): 620, 194
+       bottom(64,72): 600, 210
+       left  (54,62): 580, 194 -->
+  <path d="M600 178 L620 194 L600 210 L580 194 Z" fill="white"/>
+
+  <!-- Accent line: original M47 90 H81 → y=(90-64)*1.95+194=244.7, x1=(47-64)*1.95+600=566.85, x2=(81-64)*1.95+600=633.15 -->
+  <line x1="567" y1="245" x2="633" y2="245"
+        stroke="#AFCBFF" stroke-width="11" stroke-linecap="round" opacity="0.9"/>
+
+  <!-- "JiraSnap" wordmark -->
+  <text
+    x="600" y="342"
+    fill="white"
+    font-family="Arial Black, Arial, Helvetica, sans-serif"
+    font-size="92"
+    font-weight="900"
+    text-anchor="middle"
+    letter-spacing="-3">JiraSnap</text>
+
+  <!-- VS CODE EXTENSION pill badge -->
+  <rect x="470" y="360" width="260" height="40" rx="20"
+        fill="#152060" stroke="#3E6BFF" stroke-width="1.5"/>
+  <text
+    x="600" y="386"
+    fill="#6FA8FF"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="17"
+    font-weight="700"
+    text-anchor="middle"
+    letter-spacing="2">VS CODE EXTENSION</text>
+
+  <!-- Catchphrase -->
+  <text
+    x="600" y="454"
+    fill="#A8C4FF"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="34"
+    font-weight="400"
+    text-anchor="middle">Capture Jira tickets in seconds,</text>
+  <text
+    x="600" y="498"
+    fill="#A8C4FF"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="34"
+    font-weight="400"
+    text-anchor="middle">stay in your coding flow.</text>
+
+  <!-- Divider -->
+  <line x1="460" y1="536" x2="740" y2="536"
+        stroke="#1E2D60" stroke-width="1.5"/>
+
+  <!-- GitHub URL -->
+  <text
+    x="600" y="567"
+    fill="#3D5496"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="19"
+    text-anchor="middle">github.com/buildermindset/jirasnap</text>
+
+  <!-- Corner accent dots — top left -->
+  <circle cx="56"  cy="56"  r="4" fill="#2A4090" opacity="0.7"/>
+  <circle cx="76"  cy="56"  r="4" fill="#2A4090" opacity="0.45"/>
+  <circle cx="96"  cy="56"  r="4" fill="#2A4090" opacity="0.25"/>
+  <circle cx="56"  cy="76"  r="4" fill="#2A4090" opacity="0.45"/>
+  <circle cx="56"  cy="96"  r="4" fill="#2A4090" opacity="0.25"/>
+
+  <!-- Corner accent dots — bottom right -->
+  <circle cx="1144" cy="574" r="4" fill="#2A4090" opacity="0.7"/>
+  <circle cx="1124" cy="574" r="4" fill="#2A4090" opacity="0.45"/>
+  <circle cx="1104" cy="574" r="4" fill="#2A4090" opacity="0.25"/>
+  <circle cx="1144" cy="554" r="4" fill="#2A4090" opacity="0.45"/>
+  <circle cx="1144" cy="534" r="4" fill="#2A4090" opacity="0.25"/>
+</svg>

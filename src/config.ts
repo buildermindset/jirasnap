@@ -31,7 +31,8 @@ export function getSettings(): JiraSnapSettings {
     defaultEpicKey: parseIssueKeyFromInput(String(config.get('defaultEpicKey', ''))),
     capturesJql: String(config.get('capturesJql', 'labels = jirasnap ORDER BY created DESC')).trim(),
     showStatusBarOpenCaptures: Boolean(config.get('showStatusBarOpenCaptures', true)),
-    capitalizableFieldId: String(config.get('capitalizableFieldId', 'customfield_11302')).trim(),
+    customFieldsJson: String(config.get('customFieldsJson', '{}')).trim(),
+    capitalizableFieldId: String(config.get('capitalizableFieldId', '')).trim(),
     capitalizableValue: String(config.get('capitalizableValue', 'Yes')).trim(),
   };
 }

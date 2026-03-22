@@ -48,6 +48,26 @@ type JiraErrorBody = {
   errors?: Record<string, string>;
 };
 
+function parseCustomFieldsJson(raw: string): Record<string, unknown> {
+  const value = raw.trim();
+  if (!value) {
+    return {};
+  }
+
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(value);
+  } catch {
+    throw new Error('jirasnap.customFieldsJson is invalid JSON. Expected a JSON object like {"customfield_12345":{"value":"Yes"}}.');
+  }
+
+  if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
+    throw new Error('jirasnap.customFieldsJson must be a JSON object. Example: {"customfield_12345":{"value":"Yes"}}.');
+  }
+
+  return parsed as Record<string, unknown>;
+}
+
 export class JiraRequestError extends Error {
   status: number;
   isParentAssignmentError: boolean;
@@ -154,6 +174,9 @@ export async function createTaskIssue(
       value: settings.capitalizableValue || 'Yes',
     };
   }
+
+  const customFields = parseCustomFieldsJson(settings.customFieldsJson);
+  Object.assign(baseFields, customFields);
 
   const withParentPayload = {
     fields: {

@@ -8,6 +8,16 @@ Create Jira tasks from VS Code in seconds.
 
 JiraSnap is a focused capture extension: minimal prompts, automatic context, and reliable issue creation even when parent assignment fails.
 
+## Quick Start (Fast Path)
+
+1. Set required Jira settings (`jirasnap.baseUrl`, `jirasnap.email`, `jirasnap.apiToken`, `jirasnap.projectKey`).
+2. In any editor tab, press `cmd+shift+j`.
+3. Enter title and optional note.
+
+This shortcut is the primary workflow for JiraSnap and the fastest way to capture work without leaving your coding flow.
+
+If `cmd+shift+j` triggers the wrong command (for example `Invalid JSON, please check manually`), open Keyboard Shortcuts, search `cmd+shift+j`, and keep only `JiraSnap: Capture Task`.
+
 ## Features
 
 - Fast command-driven capture from inside the editor
@@ -28,7 +38,7 @@ JiraSnap is a focused capture extension: minimal prompts, automatic context, and
 - `JiraSnap: Capture Task`
 - `JiraSnap: Open Captures`
 
-Default keybinding:
+Default keybinding (primary workflow):
 
 - macOS: `cmd+shift+j`
 
@@ -60,8 +70,13 @@ Optional settings:
   - default: `labels = jirasnap ORDER BY created DESC`
 - `jirasnap.showStatusBarOpenCaptures`
   - default: `true`
+- `jirasnap.customFieldsJson`
+  - default: `{}`
+  - JSON object merged into Jira issue fields for company-specific required fields
+  - example: `{"customfield_11302":{"value":"Yes"},"customfield_12345":"ABC"}`
 - `jirasnap.capitalizableFieldId`
-  - default: `customfield_11302`
+  - default: empty
+  - legacy optional single-field shortcut; use `jirasnap.customFieldsJson` for multiple fields
 - `jirasnap.capitalizableValue`
   - default: `Yes`
 
@@ -115,8 +130,16 @@ Use this placeholder listing URL until verification is complete:
   - clear or correct `jirasnap.defaultEpicKey`; JiraSnap can create without parent
 - Jira custom field errors
   - confirm `jirasnap.capitalizableFieldId` and option value for your Jira instance
+- `jirasnap.customFieldsJson is invalid JSON`
+  - set `jirasnap.customFieldsJson` to a valid JSON object string
+  - example: `{"customfield_11302":{"value":"Yes"}}`
 - Description format errors
   - JiraSnap sends ADF automatically; if this appears again, validate against the latest packaged version
+- `Invalid JSON, please check manually` appears when pressing `cmd+shift+j`
+  - this is usually a keybinding conflict with another command
+  - confirm JiraSnap works from Command Palette: `JiraSnap: Capture Task`
+  - open Keyboard Shortcuts, search `cmd+shift+j`, keep only `JiraSnap: Capture Task`
+  - remove conflicting bindings such as `json.shortcut` and `workbench.action.search.toggleQueryDetails`
 
 ## Validation
 

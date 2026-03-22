@@ -39,6 +39,26 @@ Fix:
 - Jira Cloud requires ADF document format
 - Use latest packaged JiraSnap version (ADF is already implemented)
 
+### Capture shortcut triggers wrong command
+
+Symptoms:
+
+- Pressing `cmd+shift+j` shows `Invalid JSON, please check manually`
+- JiraSnap title/note prompts do not appear
+
+Root cause:
+
+- Shortcut conflict with another extension or built-in command
+
+Fix:
+
+- Verify JiraSnap itself works from Command Palette: `JiraSnap: Capture Task`
+- Open Keyboard Shortcuts and search `cmd+shift+j`
+- Keep only `JiraSnap: Capture Task` bound to that key
+- Remove conflicting bindings, commonly:
+  - `json.shortcut`
+  - `workbench.action.search.toggleQueryDetails`
+
 ### Parent epic rejected
 
 Symptoms:
@@ -60,6 +80,17 @@ Checks:
 
 - Confirm `jirasnap.capitalizableFieldId` matches your Jira instance
 - Confirm option value exists (default `Yes`)
+
+### Invalid custom fields JSON
+
+Symptoms:
+
+- JiraSnap shows `jirasnap.customFieldsJson is invalid JSON`
+
+Fix:
+
+- Set `jirasnap.customFieldsJson` to a valid JSON object string
+- Example: `{"customfield_11302":{"value":"Yes"},"customfield_12345":"ABC"}`
 
 ## Marketplace Publishing Issues
 

@@ -2,24 +2,49 @@
 
 Only open work is listed below.
 
-## Release Follow-up
+## P0 - Post-Verification Release Tasks
 
-- [ ] Replace README Marketplace placeholders with final public listing URL.
-- [ ] Confirm Marketplace listing visuals after verification (icon, banner, README image rendering).
-- [ ] Add a short demo recording (capture flow + open captures flow).
+- [ ] Replace README Marketplace placeholders with the final public listing URL.
+- [ ] Confirm live listing visuals (icon, banner, README rendering) on Marketplace.
+- [ ] Add a short demo recording (capture flow + Open Captures flow).
 
-## Product Hardening
+## P1 - Phase 2 Product Enhancements
 
-- [ ] Add fallback handling when the capitalizable custom field is missing/rejected.
-- [ ] Improve custom-field error messages with field id/name + suggested action.
-- [ ] Add a quick configuration self-check command (base URL, auth, project, optional parent).
+- [ ] Meet UX target: from shortcut to created issue in under 10 seconds after setup.
+- [ ] Add a `JiraSnap: Run Configuration Check` command.
+  - Verify base URL reachability.
+  - Verify auth (`/myself`).
+  - Verify project key access.
+  - Validate optional parent epic key if configured.
+- [ ] Add stronger custom-field handling for `capitalizable`.
+  - Detect field-not-found vs value-not-allowed failures.
+  - Retry without custom field when explicitly configured to allow fallback.
+  - Show actionable error with exact field id/value.
+- [ ] Add optional code-selection snippet capture in description.
+  - Bounded length with truncation notice.
+  - Respect empty selection and never block issue creation.
+- [ ] Add optional issue type setting for capture (`Task` default; allow `Bug`/`Story`).
+- [ ] Add optional extra label setting (`jirasnap` always retained).
 
-## Code Quality
+## P1 - Reliability and Testing
 
-- [ ] Add a helper module for Jira custom-field mappings.
-- [ ] Add integration-style payload tests (shape validation, no live Jira call).
+- [ ] Add integration-style tests for request payload shapes (with parent, without parent, custom field variants).
+- [ ] Add tests for friendly error mapping for common Jira create failures.
+- [ ] Add tests for issue-key parsing from browse URLs and invalid inputs.
 
-## Docs
+## P2 - Code Quality and Maintainability
+
+- [ ] Extract Jira field construction into a helper module (custom fields + parent + labels).
+- [ ] Remove redundant `onCommand:*` activation events and rely on contributed commands activation.
+- [ ] Add a small release helper script to run: lint + build + test + package in one command.
+
+## P2 - Docs and Workflow
 
 - [ ] Keep `docs/troubleshooting.md` updated with new Jira/Marketplace gotchas.
-- [ ] Add a short release checklist section referencing account/publisher mismatch checks.
+- [ ] Add a concise release checklist to `PUBLISHING.md` (account check, publisher check, version check, package, publish).
+- [ ] Decide whether to archive or remove `docs/BUILD_PLAN.md` now that active work is tracked in this file.
+
+## P3 - Future Enhancements (Migrated From BUILD_PLAN)
+
+- [ ] Add multi-project support.
+- [ ] Add bulk capture queue mode.

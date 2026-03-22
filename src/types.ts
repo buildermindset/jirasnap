@@ -6,6 +6,7 @@ export type JiraSnapSettings = {
   defaultEpicKey: string;
   capturesJql: string;
   showStatusBarOpenCaptures: boolean;
+  customFieldsJson: string;
   capitalizableFieldId: string;
   capitalizableValue: string;
 };

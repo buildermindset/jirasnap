@@ -12,3 +12,4 @@ tsconfig.test.json
 eslint.config.js
 images/*.svg
 images/README.md
+images/medium-header.png
