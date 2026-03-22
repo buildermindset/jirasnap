@@ -23,10 +23,12 @@ If `cmd+shift+j` triggers the wrong command (for example `Invalid JSON, please c
 JiraSnap will not create issues until your Jira account and project settings are configured.
 
 1. Set required connection settings:
-  - `jirasnap.baseUrl`
-  - `jirasnap.email`
-  - `jirasnap.apiToken`
-  - `jirasnap.projectKey`
+
+- `jirasnap.baseUrl`
+- `jirasnap.email`
+- `jirasnap.apiToken`
+- `jirasnap.projectKey`
+
 2. Confirm your Jira user can create issues in that project.
 3. If your company enforces additional required Jira fields, map them in `jirasnap.customFieldsJson` (see section below).
 
@@ -141,15 +143,13 @@ Legacy note:
 
 ### Install from Marketplace
 
-Use this placeholder listing URL until verification is complete:
-
 - https://marketplace.visualstudio.com/items?itemName=troyjohnson-devtools.jirasnap
 
 ### Install from VSIX (local)
 
 1. In VS Code Extensions view, open `...` menu.
 2. Select `Install from VSIX...`.
-3. Choose `jirasnap-0.0.2.vsix`.
+3. Choose `jirasnap-<version>.vsix` (for example `jirasnap-0.0.4.vsix`).
 
 ### Development install
 

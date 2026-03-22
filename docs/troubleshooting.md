@@ -170,6 +170,27 @@ Known working PAT URL in this project:
 
 - https://dev.azure.com/johnsontroye1/_usersSettings/tokens
 
+### VSCE publish pauses waiting for PAT
+
+Symptoms:
+
+- `npx @vscode/vsce publish` appears to hang after printing Marketplace URL
+- Terminal shows a PAT prompt
+
+Cause:
+
+- No cached VSCE login and `VSCE_PAT` env var is not set
+
+Fix:
+
+- Provide PAT interactively at prompt, or
+- Set `VSCE_PAT` before publish:
+
+```bash
+export VSCE_PAT="<your-pat>"
+npx @vscode/vsce publish
+```
+
 ## Packaging and Asset Issues
 
 ### Icon not found in VSIX

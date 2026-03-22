@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.0.4
+
+- Bumped extension version to `0.0.4` for Marketplace release.
+- Re-validated release gates: `npm run lint`, `npm test`, and `npm run package:vsix`.
+- Confirmed packaged artifact `jirasnap-0.0.4.vsix` is generated successfully.
+- Updated publishing documentation with the exact PAT/auth flow observed during publish.
+- Updated README installation wording and VSIX example version.
+
 ## 0.0.3
 
 - Added Marketplace badge and listing placeholders to README.
