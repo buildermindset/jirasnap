@@ -92,6 +92,37 @@ Fix:
 - Set `jirasnap.customFieldsJson` to a valid JSON object string
 - Example: `{"customfield_11302":{"value":"Yes"},"customfield_12345":"ABC"}`
 
+### How to discover required Jira fields for your account
+
+Symptoms:
+
+- Jira issue creation fails even though auth and project key are correct
+- Jira error mentions missing required field, invalid option, or customfield id
+
+Fix:
+
+1. In Jira web, create the same issue type manually in the same project.
+2. Record fields marked required (`*`).
+3. Use browser DevTools Network tab during manual issue create to inspect the request body and capture exact field keys and value shapes.
+4. Add those fields to `jirasnap.customFieldsJson`.
+
+Example:
+
+```json
+{
+  "customfield_11302": { "value": "Yes" },
+  "customfield_12345": "ABC"
+}
+```
+
+Common mappings:
+
+- Text: `"customfield_12345": "Some text"`
+- Single select: `"customfield_12345": { "value": "Option Name" }`
+- Multi select: `"customfield_12345": [{ "value": "Option A" }, { "value": "Option B" }]`
+- User picker: `"customfield_12345": { "accountId": "<jira-account-id>" }`
+- Number: `"customfield_12345": 5`
+
 ## Marketplace Publishing Issues
 
 ### Publisher mismatch on upload

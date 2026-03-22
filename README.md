@@ -10,13 +10,27 @@ JiraSnap is a focused capture extension: minimal prompts, automatic context, and
 
 ## Quick Start (Fast Path)
 
-1. Set required Jira settings (`jirasnap.baseUrl`, `jirasnap.email`, `jirasnap.apiToken`, `jirasnap.projectKey`).
+1. Complete required setup settings (`jirasnap.baseUrl`, `jirasnap.email`, `jirasnap.apiToken`, `jirasnap.projectKey`).
 2. In any editor tab, press `cmd+shift+j`.
 3. Enter title and optional note.
 
 This shortcut is the primary workflow for JiraSnap and the fastest way to capture work without leaving your coding flow.
 
 If `cmd+shift+j` triggers the wrong command (for example `Invalid JSON, please check manually`), open Keyboard Shortcuts, search `cmd+shift+j`, and keep only `JiraSnap: Capture Task`.
+
+## Before First Use (Required Setup)
+
+JiraSnap will not create issues until your Jira account and project settings are configured.
+
+1. Set required connection settings:
+  - `jirasnap.baseUrl`
+  - `jirasnap.email`
+  - `jirasnap.apiToken`
+  - `jirasnap.projectKey`
+2. Confirm your Jira user can create issues in that project.
+3. If your company enforces additional required Jira fields, map them in `jirasnap.customFieldsJson` (see section below).
+
+If required settings are missing, JiraSnap shows an error and offers to open settings.
 
 ## Features
 
@@ -79,6 +93,40 @@ Optional settings:
   - legacy optional single-field shortcut; use `jirasnap.customFieldsJson` for multiple fields
 - `jirasnap.capitalizableValue`
   - default: `Yes`
+
+## Company-Specific Required Fields (Important)
+
+Many Jira instances require custom fields beyond summary/project/type. These are different for every company (and sometimes per project/issue type).
+
+Use `jirasnap.customFieldsJson` to map those fields for your account.
+
+Example:
+
+```json
+{
+  "customfield_11302": { "value": "Yes" },
+  "customfield_12345": "ABC"
+}
+```
+
+How to find your required fields:
+
+1. In Jira web, create the same issue type manually (same project, usually `Task`).
+2. Note fields marked required (`*`) on that form.
+3. Open browser DevTools Network tab while creating an issue and inspect the create request payload to see exact field keys (for example `customfield_12345`) and value shape.
+4. Copy that structure into `jirasnap.customFieldsJson`.
+
+Common value shapes:
+
+- Text field: `"customfield_12345": "Some text"`
+- Single select: `"customfield_12345": { "value": "Yes" }`
+- Multi select: `"customfield_12345": [{ "value": "Option A" }, { "value": "Option B" }]`
+- User picker: `"customfield_12345": { "accountId": "<jira-account-id>" }`
+- Number: `"customfield_12345": 5`
+
+Legacy note:
+
+- `jirasnap.capitalizableFieldId` and `jirasnap.capitalizableValue` are kept for backward compatibility, but `jirasnap.customFieldsJson` is the recommended approach.
 
 ## How It Works
 
@@ -172,7 +220,6 @@ Use this before publishing or after major changes:
 
 ## Project Docs
 
-- Build and implementation checklist: [docs/BUILD_PLAN.md](docs/BUILD_PLAN.md)
 - Working task list: [docs/todo.md](docs/todo.md)
 - Troubleshooting notes and publish gotchas: [docs/troubleshooting.md](docs/troubleshooting.md)
 - Release notes: [CHANGELOG.md](CHANGELOG.md)
