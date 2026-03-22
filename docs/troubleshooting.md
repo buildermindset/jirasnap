@@ -101,10 +101,12 @@ Symptoms:
 
 Fix:
 
-1. In Jira web, create the same issue type manually in the same project.
-2. Record fields marked required (`*`).
-3. Use browser DevTools Network tab during manual issue create to inspect the request body and capture exact field keys and value shapes.
-4. Add those fields to `jirasnap.customFieldsJson`.
+1. In Jira web, open the same project and choose **Create issue** with the same issue type (usually `Task`).
+2. Note every field marked with a red asterisk (`*`) — those are required.
+3. Open browser DevTools (`F12` or `Cmd+Option+I`) and go to the **Network** tab. Filter by `XHR` or type `issue` in the filter box.
+4. Submit the create form. Look for a POST request to `/rest/api/2/issue` or `/rest/api/3/issue`.
+5. Click that request and open the **Payload** (Chrome) or **Request** (Firefox) tab to see the full JSON body.
+6. Copy the `customfield_*` keys and their values into `jirasnap.customFieldsJson`.
 
 Example:
 

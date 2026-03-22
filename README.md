@@ -113,10 +113,12 @@ Example:
 
 How to find your required fields:
 
-1. In Jira web, create the same issue type manually (same project, usually `Task`).
-2. Note fields marked required (`*`) on that form.
-3. Open browser DevTools Network tab while creating an issue and inspect the create request payload to see exact field keys (for example `customfield_12345`) and value shape.
-4. Copy that structure into `jirasnap.customFieldsJson`.
+1. In Jira web, open the project and choose **Create issue** (same project and issue type you use in JiraSnap, usually `Task`).
+2. Note every field marked with a red asterisk (`*`) — those are required.
+3. Open browser DevTools (`F12` or `Cmd+Option+I`), go to the **Network** tab, and filter by `XHR` or search for `issue`.
+4. Submit the create form. A request to `/rest/api/2/issue` or `/rest/api/3/issue` will appear.
+5. Click that request, open the **Payload** (or **Request Body**) tab, and copy the JSON. The keys that look like `customfield_12345` with their values are exactly what you need.
+6. Paste those key/value pairs into `jirasnap.customFieldsJson` in VS Code settings.
 
 Common value shapes:
 
