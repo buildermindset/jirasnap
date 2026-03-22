@@ -1,85 +1,136 @@
 # Publishing JiraSnap
 
-## Prerequisites
+Publisher: `troyjohnson-devtools`
+Extension ID: `troyjohnson-devtools.jirasnap`
 
-- VS Code Marketplace publisher exists and is owned by the active account (current: `troyjohnson-devtools`)
-- Marketplace PAT with publish/manage permission
-- Target version already set in `package.json`
+---
 
-## Release Flow (Verified)
+## Step 1 — Create a Marketplace PAT
 
-The following sequence has been run successfully in this repo:
+You need a fresh PAT every time the old one expires.
+
+1. Go to: https://dev.azure.com/johnsontroye1/_usersSettings/tokens
+   - Use this URL specifically. The generic `app.vssps.visualstudio.com` token page may not work for this account.
+2. Click **New Token**.
+3. Fill in:
+   - **Name**: anything descriptive, e.g. `vsce-publish-jirasnap`
+   - **Organization**: `All accessible organizations`
+   - **Expiration**: your choice (90 days is a reasonable default)
+   - **Scopes**: choose **Custom defined**, then under **Marketplace** check **Manage**
+4. Click **Create**.
+5. Copy the token value immediately. It will not be shown again.
+
+> Account note: The `troyjohnson-devtools` publisher belongs to the account signed in
+> at `johnsontroye1`. If you sign into Azure DevOps with a different account (work vs
+> personal), the PAT will fail with access denied on the publisher resource.
+
+---
+
+## Step 2 — Bump version
 
 ```bash
-npm version 0.0.4 --no-git-tag-version
+npm version 0.0.5 --no-git-tag-version
+```
+
+Replace `0.0.5` with the actual next version. This updates `package.json` only — no git tag is created.
+
+---
+
+## Step 3 — Update CHANGELOG.md
+
+Add a section at the top of [CHANGELOG.md](CHANGELOG.md) describing what changed:
+
+```
+## 0.0.5
+
+- Brief description of what changed.
+```
+
+---
+
+## Step 4 — Run release checks
+
+```bash
 npm run lint
 npm test
 npm run package:vsix
 ```
 
-Expected artifact:
+All three must succeed. The last command produces `jirasnap-<version>.vsix`.
 
-- `jirasnap-0.0.4.vsix` (or `jirasnap-<version>.vsix` for future releases)
+---
 
-## Publish to Marketplace
+## Step 5 — Publish to Marketplace
 
-Option A: publish with interactive PAT prompt:
+Set your PAT and publish:
 
 ```bash
+export VSCE_PAT="<paste-your-token-here>"
 npx @vscode/vsce publish
 ```
 
-If no stored auth is available, VSCE prompts for a PAT in terminal.
+VSCE will:
 
-Option B: publish non-interactively with environment variable:
+1. Re-package the extension.
+2. Upload to the Marketplace under `troyjohnson-devtools`.
+3. Print a success message with the published version.
 
-```bash
-export VSCE_PAT="<your-pat>"
-npx @vscode/vsce publish
-```
-
-Option C: one-shot publish command:
+If you prefer a one-liner without exporting:
 
 ```bash
-npx @vscode/vsce publish --pat "<your-pat>"
+npx @vscode/vsce publish --pat "<paste-your-token-here>"
 ```
 
-## Verify Published Version
+---
+
+## Step 6 — Verify the published version
 
 ```bash
 npx @vscode/vsce show troyjohnson-devtools.jirasnap
 ```
 
-Use this to confirm the Marketplace version moved to the expected release (for example `0.0.4`).
+Confirm `Version` in the output matches the version you just published.
 
-## Recommended End-to-End Steps
+---
 
-1. Update `CHANGELOG.md`.
-2. Ensure `README.md` install and usage instructions match behavior.
-3. Bump version (`npm version <x.y.z> --no-git-tag-version`).
-4. Run `npm run lint`.
-5. Run `npm test`.
-6. Run `npm run package:vsix`.
-7. Publish with `vsce` (PAT required).
-8. Verify with `vsce show`.
-9. Commit version/docs updates and push.
+## Step 7 — Commit and push release
 
-## Common Publish Issues
+```bash
+git commit -am "chore(release): bump to <version>"
+git push origin main
+```
 
-- `Access Denied ... on resource /<publisher>`
-  - PAT account does not own the publisher. Re-auth with the correct account.
-- VSCE prompts for PAT and appears blocked
-  - This is expected when `VSCE_PAT` is not set and no cached login exists.
-- `publisher does not exist`
-  - `publisher` in `package.json` must exactly match Marketplace publisher ID.
-- packaging/asset errors
-  - regenerate assets with `npm run assets` and keep packaged image paths valid.
+---
+
+## Common Issues
+
+### VSCE prompts for PAT and appears to hang
+
+- This happens when `VSCE_PAT` is not set and no cached login exists.
+- Set `VSCE_PAT` via export before running publish (Step 5 above).
+
+### Access Denied on resource `/troyjohnson-devtools`
+
+- The PAT you used was created from the wrong Microsoft account.
+- Sign into Azure DevOps at https://dev.azure.com/johnsontroye1 and create the token there.
+
+### `publisher does not exist`
+
+- `publisher` in `package.json` must exactly match the Marketplace publisher ID (`troyjohnson-devtools`).
+
+### Packaging/asset errors
+
+- Run `npm run assets` to regenerate PNG images from SVG sources.
+- Ensure `images/icon.png` and `images/banner.png` exist before packaging.
+
+---
 
 ## Web Upload Fallback
 
-If CLI auth is blocked, publish through the Marketplace UI:
+If CLI auth keeps failing, use the web UI instead:
 
-1. Open your publisher page.
-2. Choose **New extension**.
+1. Open: https://marketplace.visualstudio.com/manage/publishers/troyjohnson-devtools
+2. Click **New extension**.
 3. Upload `jirasnap-<version>.vsix`.
-4. Complete publish in web flow.
+4. Complete the publish flow in the browser.
+5. Verify the version is live with `npx @vscode/vsce show troyjohnson-devtools.jirasnap`.
