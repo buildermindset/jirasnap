@@ -2,7 +2,7 @@
   "name": "jirasnap",
   "displayName": "JiraSnap",
   "description": "Instant Jira task capture from VS Code.",
-  "version": "0.0.3",
+  "version": "0.0.2",
   "publisher": "troyjohnson-devtools",
   "icon": "images/icon.png",
   "galleryBanner": {
@@ -32,8 +32,6 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:jirasnap.captureTask",
-    "onCommand:jirasnap.openCaptures",
     "onStartupFinished"
   ],
   "main": "./dist/extension.js",
@@ -87,15 +85,20 @@
           "default": true,
           "description": "Show a status bar button that opens JiraSnap captures."
         },
+        "jirasnap.customFieldsJson": {
+          "type": "string",
+          "default": "{}",
+          "description": "Optional JSON object merged into Jira issue fields. Use this for company-specific required fields. Example: {\"customfield_11302\":{\"value\":\"Yes\"},\"customfield_12345\":\"ABC\"}"
+        },
         "jirasnap.capitalizableFieldId": {
           "type": "string",
-          "default": "customfield_11302",
-          "description": "Jira custom field id for the Capitalizable field."
+          "default": "",
+          "description": "Legacy optional single custom field id for Capitalizable. Leave empty unless your Jira instance requires it."
         },
         "jirasnap.capitalizableValue": {
           "type": "string",
           "default": "Yes",
-          "description": "Value to send for the Capitalizable Jira field."
+          "description": "Legacy optional value used with jirasnap.capitalizableFieldId."
         }
       }
     },
@@ -108,13 +111,14 @@
     ]
   },
   "scripts": {
+    "assets": "node scripts/render-assets.js",
     "build": "tsc -p .",
     "watch": "tsc -w -p .",
     "lint": "eslint src --ext .ts",
     "build:test": "tsc -p tsconfig.test.json",
     "test": "npm run build:test && node --test dist-test/test/**/*.test.js",
     "smoke": "node scripts/smoke-create-jira-issue.js",
-    "package:vsix": "npm run build && npx @vscode/vsce package"
+    "package:vsix": "npm run assets && npm run build && npx @vscode/vsce package"
   },
   "devDependencies": {
     "@resvg/resvg-js": "^2.6.2",
