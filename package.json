@@ -1,8 +1,8 @@
 {
   "name": "jirasnap",
   "displayName": "JiraSnap",
-  "description": "Instant Jira task capture from VS Code.",
-  "version": "0.0.5",
+  "description": "Capture Jira tickets and log work hours from VS Code without breaking your flow.",
+  "version": "0.1.0",
   "publisher": "troyjohnson-devtools",
   "icon": "images/icon.png",
   "galleryBanner": {
@@ -17,6 +17,9 @@
     "jira",
     "ticket",
     "issue",
+    "worklog",
+    "time-tracking",
+    "hours",
     "developer-tools",
     "productivity",
     "vscode"
@@ -44,6 +47,10 @@
       {
         "command": "jirasnap.openCaptures",
         "title": "JiraSnap: Open Captures"
+      },
+      {
+        "command": "jirasnap.snapHours",
+        "title": "JiraSnap: Hours"
       }
     ],
     "configuration": {
@@ -90,15 +97,10 @@
           "default": "{}",
           "description": "Optional JSON object merged into Jira issue fields. Use this for company-specific required fields. Example: {\"customfield_11302\":{\"value\":\"Yes\"},\"customfield_12345\":\"ABC\"}"
         },
-        "jirasnap.capitalizableFieldId": {
+        "jirasnap.hoursJql": {
           "type": "string",
-          "default": "",
-          "description": "Legacy optional single custom field id for Capitalizable. Leave empty unless your Jira instance requires it."
-        },
-        "jirasnap.capitalizableValue": {
-          "type": "string",
-          "default": "Yes",
-          "description": "Legacy optional value used with jirasnap.capitalizableFieldId."
+          "default": "assignee = currentUser() AND resolution = Unresolved ORDER BY updated DESC",
+          "description": "JQL filter for stories shown in JiraSnap: Hours. Example: Sprint is not EMPTY AND \"Capitalizable\" = Yes AND status in (\"In Progress\", BLOCKED, \"UAT PASSED\")"
         }
       }
     },
@@ -126,6 +128,7 @@
     "@types/vscode": "^1.85.0",
     "@typescript-eslint/eslint-plugin": "^8.30.1",
     "@typescript-eslint/parser": "^8.30.1",
+    "@vscode/vsce": "^3.9.1",
     "eslint": "^9.23.0",
     "typescript": "^5.8.3"
   }

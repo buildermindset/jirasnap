@@ -29,10 +29,10 @@ You need a fresh PAT every time the old one expires.
 ## Step 2 — Bump version
 
 ```bash
-npm version 0.0.5 --no-git-tag-version
+npm version 0.1.0 --no-git-tag-version
 ```
 
-Replace `0.0.5` with the actual next version. This updates `package.json` only — no git tag is created.
+Replace `0.1.0` with the actual next version. This updates `package.json` only — no git tag is created.
 
 ---
 
@@ -41,7 +41,7 @@ Replace `0.0.5` with the actual next version. This updates `package.json` only �
 Add a section at the top of [CHANGELOG.md](CHANGELOG.md) describing what changed:
 
 ```
-## 0.0.5
+## 0.1.0
 
 - Brief description of what changed.
 ```

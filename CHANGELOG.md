@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.0
+
+- Added `JiraSnap: Hours` command — pick one of your Jira stories from a Command Palette dropdown and log time against it via Jira's worklog API.
+- Added `jirasnap.hoursJql` setting to filter the dropdown to only the stories you care about (any valid JQL).
+- Fixed: `jirasnap.hoursJql` was previously declared in the configuration schema but never read by the extension, so custom filters were silently ignored.
+- Refreshed Marketplace banner to spotlight the Hours feature.
+- Expanded README with a "Logging Hours to a Story" walkthrough, a "Filtering Stories for the Hours Command" section, and a tip on using Atlassian's Rovo AI to generate JQL.
+- **Breaking:** removed legacy settings `jirasnap.capitalizableFieldId` and `jirasnap.capitalizableValue`. They were a Chewy-specific shortcut that did nothing unless `capitalizableFieldId` was explicitly set, and `jirasnap.customFieldsJson` already covers the same use case for any custom field. Migration: move your value into `jirasnap.customFieldsJson`, e.g. `{"customfield_11302":{"value":"Yes"}}`.
+
 ## 0.0.5
 
 - Enhanced end-user documentation for required Jira custom fields setup.

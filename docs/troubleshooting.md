@@ -1,3 +1,31 @@
+# How to get a full JSON dump of a Jira issue (to see all field names and values)
+
+If you need to discover the exact field names (including custom fields) and values for a Jira issue (story, task, epic, etc.), you can fetch the full JSON for any issue using your browser or curl:
+
+**Method 1: Use your browser**
+
+1. Open the issue in Jira (e.g., https://your-org.atlassian.net/browse/ISSUE-KEY).
+2. Change the URL from `/browse/ISSUE-KEY` to `/rest/api/3/issue/ISSUE-KEY` and hit Enter.
+   - Example: https://your-org.atlassian.net/rest/api/3/issue/ISSUE-KEY
+3. If you are logged in and have permission, you’ll see the full JSON for the issue.
+
+**Method 2: Use curl**
+
+```sh
+curl -u 'your-email@domain.com:YOUR_API_TOKEN' \
+  -H "Accept: application/json" \
+  "https://your-org.atlassian.net/rest/api/3/issue/ISSUE-KEY"
+```
+
+Replace:
+
+- `your-email@domain.com` with your Jira email
+- `YOUR_API_TOKEN` with your Jira API token
+- `your-org` with your Jira site/org
+- `ISSUE-KEY` with the real issue key (e.g., TNT-123)
+
+This will return all the fields for that issue in JSON format. You can then search for your custom field names and values directly.
+
 # JiraSnap Troubleshooting
 
 This page captures known issues hit during development and publishing, plus quick fixes.

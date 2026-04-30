@@ -32,8 +32,7 @@ export function getSettings(): JiraSnapSettings {
     capturesJql: String(config.get('capturesJql', 'labels = jirasnap ORDER BY created DESC')).trim(),
     showStatusBarOpenCaptures: Boolean(config.get('showStatusBarOpenCaptures', true)),
     customFieldsJson: String(config.get('customFieldsJson', '{}')).trim(),
-    capitalizableFieldId: String(config.get('capitalizableFieldId', '')).trim(),
-    capitalizableValue: String(config.get('capitalizableValue', 'Yes')).trim(),
+    hoursJql: String(config.get('hoursJql', '')).trim(),
   };
 }
 

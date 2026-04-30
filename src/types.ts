@@ -7,8 +7,7 @@ export type JiraSnapSettings = {
   capturesJql: string;
   showStatusBarOpenCaptures: boolean;
   customFieldsJson: string;
-  capitalizableFieldId: string;
-  capitalizableValue: string;
+  hoursJql?: string;
 };
 
 export type CaptureContext = {

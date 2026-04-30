@@ -28,8 +28,8 @@
   <path d="M126 94L148 116L126 138L104 116L126 94Z" stroke="white" stroke-width="7" stroke-linejoin="round"/>
   <path d="M126 110L138 122L126 134L114 122L126 110Z" fill="white"/>
   <text x="196" y="132" fill="white" font-family="Arial, Helvetica, sans-serif" font-size="66" font-weight="700">JiraSnap</text>
-  <text x="84" y="230" fill="white" font-family="Arial, Helvetica, sans-serif" font-size="48" font-weight="700">Capture Jira tickets in seconds,</text>
-  <text x="84" y="290" fill="white" font-family="Arial, Helvetica, sans-serif" font-size="48" font-weight="700">stay in your coding flow</text>
+  <text x="84" y="230" fill="white" font-family="Arial, Helvetica, sans-serif" font-size="48" font-weight="700">Capture tickets and log hours</text>
+  <text x="84" y="290" fill="white" font-family="Arial, Helvetica, sans-serif" font-size="48" font-weight="700">without leaving your editor</text>
   <rect x="88" y="340" width="470" height="220" rx="22" fill="url(#panel)" stroke="#24398D"/>
   <rect x="108" y="362" width="430" height="18" rx="9" fill="#24305F"/>
   <circle cx="122" cy="371" r="5" fill="#F87171"/>
@@ -44,12 +44,13 @@
   <path d="M564 404V436" stroke="white" stroke-width="6" stroke-linecap="round"/>
   <path d="M548 420H580" stroke="white" stroke-width="6" stroke-linecap="round"/>
   <rect x="742" y="320" width="444" height="282" rx="24" fill="url(#panel)" stroke="#3E6BFF" stroke-width="2"/>
-  <text x="778" y="388" fill="white" font-family="Arial, Helvetica, sans-serif" font-size="46" font-weight="700">Create</text>
-  <text x="778" y="440" fill="#BFD0FF" font-family="Arial, Helvetica, sans-serif" font-size="22">Summary</text>
+  <rect x="1066" y="296" width="124" height="40" rx="20" fill="#22D3EE"/>
+  <text x="1128" y="324" fill="#0A1230" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="800" text-anchor="middle">NEW</text>
+  <text x="778" y="388" fill="white" font-family="Arial, Helvetica, sans-serif" font-size="46" font-weight="700">Log Hours</text>
+  <text x="778" y="440" fill="#BFD0FF" font-family="Arial, Helvetica, sans-serif" font-size="22">Story</text>
   <rect x="778" y="452" width="366" height="54" rx="12" stroke="#4A67CF"/>
-  <text x="804" y="487" fill="white" font-family="Arial, Helvetica, sans-serif" font-size="28">Fix login bug</text>
-  <text x="778" y="540" fill="#BFD0FF" font-family="Arial, Helvetica, sans-serif" font-size="22">Project: TNT</text>
-  <text x="778" y="576" fill="#BFD0FF" font-family="Arial, Helvetica, sans-serif" font-size="22">Type: Task</text>
-  <rect x="994" y="500" width="150" height="52" rx="14" fill="url(#accent)"/>
-  <text x="1035" y="534" fill="white" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700">Create</text>
+  <text x="804" y="487" fill="white" font-family="Arial, Helvetica, sans-serif" font-size="26">TNT-1920</text>
+  <text x="778" y="540" fill="#BFD0FF" font-family="Arial, Helvetica, sans-serif" font-size="22">Time spent: 1h 30m</text>
+  <rect x="1054" y="500" width="90" height="52" rx="14" fill="url(#accent)"/>
+  <text x="1099" y="534" fill="white" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700" text-anchor="middle">Log</text>
 </svg>

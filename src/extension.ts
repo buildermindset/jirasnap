@@ -1,9 +1,100 @@
 import * as vscode from 'vscode';
 import { getSettings, validateSettings } from './config';
 import { buildCaptureContext, buildDescription } from './context';
-import { createTaskIssue } from './jira/client';
+import { createTaskIssue, logWorkToIssue } from './jira/client';
 
 export function activate(context: vscode.ExtensionContext): void {
+    // Register the new jira:snap-hours command
+    const snapHours = vscode.commands.registerCommand('jirasnap.snapHours', async () => {
+      // 1. Validate settings
+      const settings = getSettings();
+      const missing = validateSettings(settings);
+      if (missing.length > 0) {
+        const action = 'Open Settings';
+        const message = `JiraSnap is missing required settings: ${missing.join(', ')}`;
+        const choice = await vscode.window.showErrorMessage(message, action);
+        if (choice === action) {
+          await vscode.commands.executeCommand('workbench.action.openSettings', 'jirasnap');
+        }
+        return;
+      }
+
+      // 2. Fetch user's Jira stories (issues assigned to them), using configurable JQL
+      let issues: { key: string; summary: string }[] = [];
+      try {
+        const baseUrl = settings.baseUrl.replace(/\/$/, '');
+        const authToken = Buffer.from(`${settings.email}:${settings.apiToken}`).toString('base64');
+        // Use configurable JQL for hours logging
+        const jql = settings.hoursJql || 'assignee = currentUser() AND resolution = Unresolved ORDER BY updated DESC';
+        const url = `${baseUrl}/rest/api/3/search/jql`;
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Basic ${authToken}`,
+          },
+          body: JSON.stringify({ jql, fields: ["key", "summary"], maxResults: 20 }),
+        });
+        if (!response.ok) {
+          throw new Error(`Jira API error (${response.status}) fetching issues.`);
+        }
+        const data = (await response.json()) as { issues?: any[] };
+        issues = (data.issues || []).map((issue: any) => ({
+          key: issue.key,
+          summary: (issue.fields && typeof issue.fields.summary === 'string') ? issue.fields.summary : '(No summary)',
+        }));
+      } catch (err) {
+        vscode.window.showErrorMessage('Failed to fetch Jira issues: ' + (err instanceof Error ? err.message : String(err)));
+        return;
+      }
+
+      if (!issues.length) {
+        vscode.window.showInformationMessage('No Jira stories assigned to you.');
+        return;
+      }
+
+      // 3. Show dropdown (QuickPick) of issues
+      const pick = await vscode.window.showQuickPick(
+        issues.map((i) => ({
+          label: `${i.key}: ${i.summary}`,
+          description: i.key,
+          issue: i,
+        })),
+        {
+          placeHolder: 'Select a Jira story to log hours',
+          ignoreFocusOut: true,
+        }
+      );
+      if (!pick) return;
+
+      // 4. Prompt for hours input with format instructions
+      const timeSpent = await vscode.window.showInputBox({
+        prompt: 'Enter time spent (e.g. 2w 4d 6h 45m)',
+        placeHolder: 'Use the format: 2w 4d 6h 45m',
+        ignoreFocusOut: true,
+        validateInput: (value: string) => value.trim() ? null : 'Time spent is required',
+      });
+      if (!timeSpent) return;
+
+      // 5. Save hours to Jira via API
+      try {
+        await vscode.window.withProgress(
+          {
+            location: vscode.ProgressLocation.Notification,
+            title: `Logging work to ${pick.issue.key}...`,
+            cancellable: false,
+          },
+          async () => {
+            await logWorkToIssue(settings, pick.issue.key, timeSpent);
+          }
+        );
+        vscode.window.showInformationMessage(`Logged ${timeSpent} to ${pick.issue.key}`);
+      } catch (err) {
+        vscode.window.showErrorMessage('Failed to log work: ' + (err instanceof Error ? err.message : String(err)));
+      }
+    });
+
   const capturesButton = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 100);
   capturesButton.command = 'jirasnap.openCaptures';
   capturesButton.text = '$(list-selection) JiraSnap';
@@ -103,6 +194,7 @@ export function activate(context: vscode.ExtensionContext): void {
   });
 
   context.subscriptions.push(captureTask);
+    context.subscriptions.push(snapHours);
   context.subscriptions.push(openCaptures);
   context.subscriptions.push(configChange);
   context.subscriptions.push(capturesButton);

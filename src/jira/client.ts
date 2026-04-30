@@ -1,3 +1,22 @@
+// Log work to a Jira issue via the worklog endpoint
+export async function logWorkToIssue(settings: JiraSnapSettings, issueKey: string, timeSpent: string): Promise<void> {
+  const baseUrl = settings.baseUrl.replace(/\/$/, '');
+  const authToken = Buffer.from(`${settings.email}:${settings.apiToken}`).toString('base64');
+  const url = `${baseUrl}/rest/api/3/issue/${issueKey}/worklog`;
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Basic ${authToken}`,
+    },
+    body: JSON.stringify({ timeSpent }),
+  });
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Failed to log work: ${response.status} ${errorText}`);
+  }
+}
 import { JiraSnapSettings, CreateIssueResult } from '../types';
 
 type JiraCreateIssueResponse = {
@@ -168,12 +187,6 @@ export async function createTaskIssue(
     issuetype: { name: 'Task' },
     labels: ['jirasnap'],
   };
-
-  if (settings.capitalizableFieldId) {
-    baseFields[settings.capitalizableFieldId] = {
-      value: settings.capitalizableValue || 'Yes',
-    };
-  }
 
   const customFields = parseCustomFieldsJson(settings.customFieldsJson);
   Object.assign(baseFields, customFields);
