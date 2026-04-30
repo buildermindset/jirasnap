@@ -9,7 +9,7 @@ Create Jira tickets and log work hours from VS Code — without breaking your fl
 JiraSnap gives you three things:
 
 1. **Capture a Jira ticket in seconds** with `Cmd+Shift+J`. Title + optional note, and JiraSnap auto-fills the description with your repo, branch, file path, and selected lines.
-2. **Log work hours against any of your stories** from the Command Palette. Pick a story from a filterable dropdown, type the time spent, done.
+2. **Log work hours against any of your stories** with `Cmd+Shift+H` (or from the Command Palette). Pick a story from a filterable dropdown, type the time spent, done.
 3. **Reopen your recent captures** with one click from the status bar.
 
 ---
@@ -103,10 +103,9 @@ If you set `jirasnap.defaultEpicKey`, JiraSnap will attach the ticket to that ep
 
 ### Log hours against a story
 
-1. Open the Command Palette: `Cmd + Shift + P` (Mac) or `Ctrl + Shift + P` (Windows/Linux).
-2. Type `JiraSnap: Hours` and hit Enter.
-3. Pick a story from the dropdown.
-4. Type the time spent and hit Enter:
+1. Press `Cmd + Shift + H` (Mac) or `Ctrl + Shift + H` (Windows/Linux) — or open the Command Palette and run `JiraSnap: Hours`.
+2. Pick a story from the dropdown.
+3. Type the time spent and hit Enter:
 
    | You type | Means |
    |---|---|
@@ -115,7 +114,9 @@ If you set `jirasnap.defaultEpicKey`, JiraSnap will attach the ticket to that ep
    | `1h 15m` | 1 hour 15 minutes |
    | `2w 4d 6h 45m` | weeks, days, hours, minutes |
 
-5. Done. The worklog appears on the issue in Jira immediately, the same as if you'd logged it in the Jira UI.
+4. Done. The worklog appears on the issue in Jira immediately, the same as if you'd logged it in the Jira UI.
+
+> **Heads up about `Cmd+Shift+H`:** VS Code uses this shortcut for its built-in "Replace in Files" feature. JiraSnap's version takes over while you're typing in a code editor, but VS Code's still wins everywhere else (sidebar, terminal, etc.). For most people that's fine. If you don't like it, you can change JiraSnap's shortcut to anything you want — see [Change the keyboard shortcuts](#change-the-keyboard-shortcuts).
 
 > The dropdown defaults to **every unresolved issue assigned to you**, which is usually too many. To filter it, see [Filter the Hours dropdown with JQL](#filter-the-hours-dropdown-with-jql).
 
@@ -196,6 +197,17 @@ The shape of the value depends on the field type. The most common:
 | User picker | `"customfield_12345": { "accountId": "<jira-account-id>" }` |
 | Number | `"customfield_12345": 5` |
 
+### Change the keyboard shortcuts
+
+Don't like `Cmd+Shift+J` or `Cmd+Shift+H`? You can rebind either one to whatever you want.
+
+1. Open the Command Palette (`Cmd+Shift+P`) → run `Preferences: Open Keyboard Shortcuts`.
+2. In the search box, type `jirasnap`.
+3. You'll see `JiraSnap: Capture Task` and `JiraSnap: Hours`. Click the pencil icon next to whichever one you want to change.
+4. Press your new key combo and hit Enter.
+
+That's it — VS Code remembers the new binding forever, and your change overrides JiraSnap's default.
+
 ### Filter the Hours dropdown with JQL
 
 By default, `JiraSnap: Hours` shows every unresolved issue assigned to you, which is usually way too many. Set `jirasnap.hoursJql` to any valid JQL string and the dropdown will only show matching issues.
@@ -267,13 +279,15 @@ The setting must be a valid JSON object string. Example: `{"customfield_11302":{
 
 Your `jirasnap.hoursJql` resolves to no issues, or returns too many. Validate the JQL with the curl command in [Validate a JQL string before saving it](#validate-a-jql-string-before-saving-it).
 
-### `Cmd+Shift+J` triggers the wrong command
+### `Cmd+Shift+J` or `Cmd+Shift+H` triggers the wrong command
 
-Another extension or VS Code feature is bound to the same shortcut.
+Another extension or built-in VS Code feature is bound to the same shortcut. (Notably, `Cmd+Shift+H` is VS Code's default for "Replace in Files".)
 
 1. `Cmd+Shift+P` → `Preferences: Open Keyboard Shortcuts`.
-2. Search `cmd+shift+j`.
-3. Keep only `JiraSnap: Capture Task`. Remove conflicts like `json.shortcut` or `workbench.action.search.toggleQueryDetails`.
+2. Search the shortcut (e.g. `cmd+shift+h`).
+3. Keep only the JiraSnap entry. Remove or rebind the conflicting one.
+
+Or just rebind JiraSnap's shortcut to something you prefer — see [Change the keyboard shortcuts](#change-the-keyboard-shortcuts).
 
 ### Parent / epic errors when capturing
 

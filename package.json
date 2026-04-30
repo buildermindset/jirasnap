@@ -2,7 +2,7 @@
   "name": "jirasnap",
   "displayName": "JiraSnap",
   "description": "Capture Jira tickets and log work hours from VS Code without breaking your flow.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "troyjohnson-devtools",
   "icon": "images/icon.png",
   "galleryBanner": {
@@ -108,6 +108,11 @@
       {
         "command": "jirasnap.captureTask",
         "key": "cmd+shift+j",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "jirasnap.snapHours",
+        "key": "cmd+shift+h",
         "when": "editorTextFocus"
       }
     ]

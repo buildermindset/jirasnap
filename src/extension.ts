@@ -39,8 +39,9 @@ export function activate(context: vscode.ExtensionContext): void {
         if (!response.ok) {
           throw new Error(`Jira API error (${response.status}) fetching issues.`);
         }
-        const data = (await response.json()) as { issues?: any[] };
-        issues = (data.issues || []).map((issue: any) => ({
+        type JiraIssueRaw = { key: string; fields?: { summary?: string } };
+        const data = (await response.json()) as { issues?: JiraIssueRaw[] };
+        issues = (data.issues || []).map((issue: JiraIssueRaw) => ({
           key: issue.key,
           summary: (issue.fields && typeof issue.fields.summary === 'string') ? issue.fields.summary : '(No summary)',
         }));

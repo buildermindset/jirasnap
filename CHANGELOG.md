@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.1
+
+- Added `Cmd+Shift+H` keyboard shortcut for `JiraSnap: Hours`.
+- Documented how to rebind JiraSnap shortcuts and called out the VS Code "Replace in Files" conflict on `Cmd+Shift+H`.
+
 ## 0.1.0
 
 - Added `JiraSnap: Hours` command — pick one of your Jira stories from a Command Palette dropdown and log time against it via Jira's worklog API.
